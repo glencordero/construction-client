@@ -8,8 +8,8 @@ class Prospect {
         this._phone = prospectInfo.phone
         this._email = prospectInfo.email
         this._jobsite = prospectInfo.jobsite
-        this._city = recipeCard.city
-        this._state = recipeCard.state
+        this._city = prospectInfo.city
+        this._state = prospectInfo.state
     }
     get name() {
         return this._name
@@ -89,7 +89,7 @@ function makeProspect(event){
         phone: data.get('phone'),
         email: data.get('email'),
         address: data.get('address'),
-        city: data.get('city')
+        city: data.get('city'),
         state: data.get('state')
     }
 
@@ -97,7 +97,9 @@ function makeProspect(event){
 
     
     prospects.push(newProspect)
-    localStorage.setItem('prospects', JSON.stringify(prospects))
+    // localStorage.setItem('prospects', JSON.stringify(prospects))
 }
 
 document.querySelector('#submit').addEventListener("click", makeProspect)
+
+console.log(prospects)
