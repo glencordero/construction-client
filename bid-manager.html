@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bid-manager.css"/>
+</head>
+<body>
+    <form name="prospect" id="prospect">
+		<h2>Generate Bid</h2><br>
+        <label for="name">Prospect Name:</label>
+        <input type="text" placeholder="Company Name" id="name" name="name"/><br>
+        <label for="service">Service Type:</label>
+        <select name="service" id="service" name="service">
+            <option value="rental">Rental</option>
+            <option value="purchase">purchase</option>
+        </select><br>
+        <button id="submit">Submit</button>
+    </form>
+    <script src="bid-manager.js"></script>
+</body>
+</html>

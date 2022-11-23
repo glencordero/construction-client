@@ -1,0 +1,22 @@
+label {
+    width: 180px;
+    color: rgb(0, 0, 0);
+    display: inline-block;
+    text-align: right;
+    padding-right: 5px;
+}
+h2 {
+    width: 180px;
+    color: rgb(0, 0, 0);
+    display: inline-block;
+    text-align: right;
+    padding-right: 5px;
+}
+
+button {
+    margin-left: 200px;
+}
+
+label, input, select, button {
+    margin-top: 12px;
+}
