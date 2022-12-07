@@ -8,16 +8,24 @@
     <link rel="stylesheet" href="bid-manager.css"/>
 </head>
 <body>
-    <form name="prospect" id="prospect">
+    <form name="bid" id="bid">
 		<h2>Generate Bid</h2><br>
         <label for="name">Prospect Name:</label>
-        <input type="text" placeholder="Company Name" id="name" name="name"/><br>
-        <label for="service">Service Type:</label>
-        <select name="service" id="service" name="service">
-            <option value="rental">Rental</option>
-            <option value="purchase">purchase</option>
+        <select name="name" id="name" name="name">
         </select><br>
-        <button id="submit">Submit</button>
+        <label for="bid-id">Bid ID:</label>
+        <input type="text" placeholder="Ex: GA2100" id="bid-id" name="bid-id"/><br><br><br><br>
+        <label for="quantity">Quantity:</label>
+        <input type="text" id="quantity" name="quantity"/>
+        <label for="details">Bid Details:</label>
+        <input type="text" placeholder="Ex: Pickup Rental" id="details" name="details"/>
+        <label for="price">Unit Price: $</label>
+        <input type="text" placeholder="(USD)" id="price" name="price"/>
+        <button type="button" id="add">Add to Bid</button><br><br><br><br>     
+        <div id="line-item-display"></div><br><br><br><br>
+        <div id="bid-total-display"></div><br><br><br><br>
+        <button class="finalize" id="finalize">Finalize Bid</button>
+         
     </form>
     <script src="bid-manager.js"></script>
 </body>

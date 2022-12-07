@@ -1,5 +1,11 @@
 let prospects = []
 
+if (localStorage.prospects){
+    prospects = JSON.parse(localStorage.prospects)
+}
+
+// console.log(prospects)
+
 class Prospect {
     constructor(prospectInfo){
         this._name = prospectInfo.name
@@ -97,9 +103,16 @@ function makeProspect(event){
 
     
     prospects.push(newProspect)
-    // localStorage.setItem('prospects', JSON.stringify(prospects))
+    localStorage.setItem('prospects', JSON.stringify(prospects))
 }
 
 document.querySelector('#submit').addEventListener("click", makeProspect)
+
+// console.log(JSON.parse(localStorage.prospects))
+// console.log(prospects)
+
+prospects.forEach(prospect => {
+    prospect.bids = []
+})
 
 console.log(prospects)
