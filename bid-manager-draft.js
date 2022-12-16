@@ -1,5 +1,6 @@
 let storedProspects = JSON.parse(localStorage.prospects)
 
+
 let nameSelect = document.querySelector('#name')
 
 storedProspects.forEach(prospect => {
@@ -10,6 +11,13 @@ storedProspects.forEach(prospect => {
 })
 
 let lineItems = []
+let lineItemTotalPrices = []
+
+
+let totalPriceP = document.createElement('p')
+document.querySelector('#bid-total-display').appendChild(totalPriceP)
+
+
 
 class LineItem {
     constructor(lineItemInfo){
@@ -59,7 +67,18 @@ class LineItem {
     }
 }
 
-document.querySelector('#add').addEventListener("click", createLineItem)
+function displayLineItem(){
+    document.querySelector('#line-item-display').innerHTML=''
+    lineItems.forEach(lineItem=>{
+        let containerDiv = document.createElement('div')
+        let lineItemText = document.createElement('span')
+        lineItemText.innerHTML = `${lineItem._details} at quantity ${lineItem._quantity} with a unit price of $${lineItem._price} for a total of $${lineItem._total}`
+        containerDiv.appendChild(removeButton)
+        containerDiv.appendChild(lineItemText)
+        
+        document.querySelector('#line-item-display').appendChild(containerDiv)
+    })
+}
 
 function createLineItem(event){
     event.preventDefault()
@@ -77,53 +96,39 @@ function createLineItem(event){
     let newLineItem = new LineItem(lineItemInfo)
 
     lineItems.push(newLineItem)
-    displayLineItems()
-    console.log(lineItems)
 
-    document.querySelector('#quantity').value=''
-    document.querySelector('#details').value=''
-    document.querySelector('#price').value=''
-    lineItemsTotalPrice()
-}
-
-function displayLineItems(){
-    document.querySelector('#line-item-display').innerHTML=''
     lineItems.forEach(lineItem=>{
-        let containerDiv = document.createElement('div')
-        let lineItemText = document.createElement('span')
-        lineItemText.className = "line-item-text"
-        lineItemText.innerHTML = `${lineItem._details} at quantity ${lineItem._quantity} with a unit price of $${lineItem._price} for a total of $${lineItem._total}`
-        
-        document.querySelector('#line-item-display').appendChild(containerDiv)
-        
         let lineItemsP = document.createElement('p')
         let removeButton = document.createElement('button')
         removeButton.innerHTML = "Remove"
         removeButton.id = lineItem._id
-        removeButton.className = "remove-button"
-        removeButton.onclick = removeLineItem
-        containerDiv.appendChild(removeButton)
-        containerDiv.appendChild(lineItemText)
-
+        removeButton.onclick = function(event){
+            event.preventDefault()
+            let indexOfObject = lineItems.findIndex(object => {
+                return object._id == removeButton.id
+            })
+            lineItems.splice(indexOfObject, 1)
+            console.log(lineItems)
+        }
     })
-    
+
+
+    console.log(lineItems)
+    document.querySelector('#quantity').value=''
+    document.querySelector('#details').value=''
+    document.querySelector('#price').value=''
+
+    let sumOfLineItems = lineItems.reduce((acc, lineItem) => {
+    return acc + lineItem._total}, 0)
+
+    document.querySelector('#bid-total-display').innerHTML = `Current Bid Total: $${sumOfLineItems}`
+
 }
 
-function removeLineItem(event){
-    event.preventDefault()
-    let indexOfObject = lineItems.findIndex(object => {
-        return object._id == event.target.id
-    })
-    lineItems.splice(indexOfObject, 1)
-    displayLineItems()
-    lineItemsTotalPrice()
-}
 
-function lineItemsTotalPrice(){
-    document.querySelector('#bid-total-display').innerHTML=''
-    lineItems.forEach(lineItem=>{
-        let sumOfLineItemsPrices = lineItems.reduce((acc, lineItem) => {
-        return acc + lineItem._total}, 0)
-        document.querySelector('#bid-total-display').innerHTML = `Current Bid Total: $${sumOfLineItemsPrices}`
-    })
-}
+
+document.querySelector('#add').addEventListener("click", createLineItem)
+
+
+
+

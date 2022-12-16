@@ -16,6 +16,7 @@ class Prospect {
         this._jobsite = prospectInfo.jobsite
         this._city = prospectInfo.city
         this._state = prospectInfo.state
+        this._bids = []
     }
     get name() {
         return this._name
@@ -81,6 +82,14 @@ class Prospect {
         this._state = state
     }
 
+    get bids() {
+        return this._bids
+    }
+
+    set bids(bids){
+        this._bids = bids
+    }
+
 }
 
 function makeProspect(event){
@@ -111,8 +120,5 @@ document.querySelector('#submit').addEventListener("click", makeProspect)
 // console.log(JSON.parse(localStorage.prospects))
 // console.log(prospects)
 
-prospects.forEach(prospect => {
-    prospect.bids = []
-})
 
 console.log(prospects)
