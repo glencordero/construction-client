@@ -1,6 +1,10 @@
+// INITIAL SETUP
+
 let storedProspects = JSON.parse(localStorage.prospects)
 
 let nameSelect = document.querySelector('#name')
+
+let lineItems = []
 
 storedProspects.forEach(prospect => {
     let option = document.createElement('option')
@@ -9,7 +13,7 @@ storedProspects.forEach(prospect => {
     nameSelect.appendChild(option)
 })
 
-let lineItems = []
+// CONSTRUCTORS
 
 class LineItem {
     constructor(lineItemInfo){
@@ -59,7 +63,11 @@ class LineItem {
     }
 }
 
+// EVENT LISTENERS
+
 document.querySelector('#add').addEventListener("click", createLineItem)
+
+// FUNCTIONS
 
 function createLineItem(event){
     event.preventDefault()
@@ -104,9 +112,16 @@ function displayLineItems(){
         removeButton.onclick = removeLineItem
         containerDiv.appendChild(removeButton)
         containerDiv.appendChild(lineItemText)
-
     })
-    
+}
+
+function lineItemsTotalPrice(){
+    document.querySelector('#bid-total-display').innerHTML=''
+    lineItems.forEach(lineItem=>{
+        let sumOfLineItemsPrices = lineItems.reduce((acc, lineItem) => {
+        return acc + lineItem._total}, 0)
+        document.querySelector('#bid-total-display').innerHTML = `Current Bid Total: $${sumOfLineItemsPrices}`
+    })
 }
 
 function removeLineItem(event){
@@ -119,11 +134,4 @@ function removeLineItem(event){
     lineItemsTotalPrice()
 }
 
-function lineItemsTotalPrice(){
-    document.querySelector('#bid-total-display').innerHTML=''
-    lineItems.forEach(lineItem=>{
-        let sumOfLineItemsPrices = lineItems.reduce((acc, lineItem) => {
-        return acc + lineItem._total}, 0)
-        document.querySelector('#bid-total-display').innerHTML = `Current Bid Total: $${sumOfLineItemsPrices}`
-    })
-}
+
