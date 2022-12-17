@@ -1,10 +1,12 @@
+// INITIAL SETUP
+
 let prospects = []
 
 if (localStorage.prospects){
     prospects = JSON.parse(localStorage.prospects)
 }
 
-// console.log(prospects)
+// CONSTRUCTORS
 
 class Prospect {
     constructor(prospectInfo){
@@ -92,6 +94,12 @@ class Prospect {
 
 }
 
+// EVENT LISTENERS
+
+document.querySelector('#submit').addEventListener("click", makeProspect)
+
+// FUNCTIONS
+
 function makeProspect(event){
     event.preventDefault()
     let prospectForm = document.forms[0]
@@ -110,15 +118,18 @@ function makeProspect(event){
 
     let newProspect = new Prospect(prospectInfo)
 
-    
     prospects.push(newProspect)
     localStorage.setItem('prospects', JSON.stringify(prospects))
+
+    document.querySelector('#name').value = ''
+    document.querySelector('#licensing').value = ''
+    document.querySelector('#contact-person').value = ''
+    document.querySelector('#phone').value = ''
+    document.querySelector('#email').value = ''
+    document.querySelector('#jobsite-address').value = ''
+    document.querySelector('#city').value = ''
+    document.querySelector('#state').value = ''
 }
 
-document.querySelector('#submit').addEventListener("click", makeProspect)
-
-// console.log(JSON.parse(localStorage.prospects))
-// console.log(prospects)
-
-
+// VERIFICATION
 console.log(prospects)

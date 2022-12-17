@@ -132,6 +132,7 @@ function removeLineItem(event){
     lineItems.splice(indexOfObject, 1)
     displayLineItems()
     lineItemsTotalPrice()
+    console.log(lineItems)
 }
 
 
