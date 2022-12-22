@@ -6,7 +6,7 @@ if (localStorage.prospects){
     prospects = JSON.parse(localStorage.prospects)
 }
 
-// CONSTRUCTORS
+// CLASSES
 
 class Prospect {
     constructor(prospectInfo){

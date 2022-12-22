@@ -6,6 +6,8 @@ let nameSelect = document.querySelector('#name')
 
 let lineItems = []
 
+let bids = []
+
 storedProspects.forEach(prospect => {
     let option = document.createElement('option')
     option.value = prospect._name
@@ -13,8 +15,59 @@ storedProspects.forEach(prospect => {
     nameSelect.appendChild(option)
 })
 
-// CONSTRUCTORS
+// CLASSES
 
+class Bid {
+    constructor(bidInfo){
+        this._prospect = bidInfo.prospect
+        this._id = bidInfo.id
+        this._lineItems = bidInfo.lineItems
+        this._totalPrice = bidInfo.totalPrice
+        this._bidAccepted = bidInfo.bidAccepted
+    }
+    get prospect() {
+        return this._prospect
+    }
+
+    set prospect(prospect) {
+        this._prospect = prospect
+    }
+
+    get id() {
+        return this._id
+    }
+
+    set id(id) {
+        this._id = id
+    }
+
+    get lineItems() {
+        return this._lineItems
+    }
+
+    set lineItems(lineItems) {
+        this._lineItems = lineItems
+    }
+
+    get totalPrice() {
+        return this._totalPrice
+    }
+
+    set totalPrice(totalPrice) {
+        this._totalPrice = totalPrice
+    }
+
+    get bidAccepted() {
+        return this._bidAccepted
+    }
+
+    set bidAccepted(bidAccepted) {
+        this._bidAccepted = bidAccepted
+    }
+
+
+    
+}
 class LineItem {
     constructor(lineItemInfo){
         this._quantity = lineItemInfo.quantity
@@ -66,13 +119,35 @@ class LineItem {
 // EVENT LISTENERS
 
 document.querySelector('#add').addEventListener("click", createLineItem)
+document.querySelector('#finalize').addEventListener("click", createBid)
 
 // FUNCTIONS
 
+function createBid(event){
+    event.preventDefault()
+    let bidManagerForm = document.forms[0]
+    let data = new FormData(bidManagerForm)
+
+    let bidInfo = {
+        prospect: data.get('name'),
+        id: data.get('bid-id'),
+        lineItems: lineItems,
+        totalPrice: lineItems.reduce((acc, lineItem) => {
+            return acc + lineItem._total}, 0),
+        bidAccepted: false    
+}
+
+let newBid = new Bid(bidInfo)
+
+console.log(newBid)
+// this is where i will need to access the prospects from local storage, then loop through them/find matching prospect...add to their bids array.
+
+}
+
 function createLineItem(event){
     event.preventDefault()
-    let lineItemForm = document.forms[0]
-    let data = new FormData(lineItemForm)
+    let bidManagerForm = document.forms[0]
+    let data = new FormData(bidManagerForm)
 
     let lineItemInfo = {
         quantity: parseInt(data.get('quantity')),
